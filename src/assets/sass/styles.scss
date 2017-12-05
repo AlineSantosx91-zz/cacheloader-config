@@ -1,0 +1,50 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+body {
+  padding: 0 0 0 0;
+  font-size: 14px !important;
+}
+
+h2 {
+  margin-top: 45px !important;
+}
+
+.navbar-inverse {
+  background: #4fa2be !important;
+  border: none;
+  position: fixed;
+  width: 100%;
+  z-index: 4;
+  .navbar-toggle {
+    border-color: transparent;
+    background-color: transparent;
+    &:focus, &:hover {
+      border-color: transparent;
+      background-color: transparent;
+    }
+  }
+  .navbar-collapse, .navbar-form {
+    border-color: transparent;
+    background-color: transparent;
+  }
+}
+
+.navbar-toggle {}
+
+.navbar-fixed-top {
+  top: 0;
+  border-width: 0 0 1px;
+  float: left;
+  min-height: 44px;
+  .nav {
+    padding: 0 !important;
+  }
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+}
+
+.navbar-fixed-top .nav {
+  padding: 15px 0;
+}
