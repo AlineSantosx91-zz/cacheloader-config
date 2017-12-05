@@ -1,6 +1,7 @@
 import { routing } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -13,7 +14,8 @@ import { HeaderComponent } from './common/header/header.component';
     HeaderComponent],
   imports: [
     BrowserModule,
-    routing
+    routing,
+    HttpModule
   ],
   providers: [
   ],
