@@ -6,12 +6,15 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './common/header/header.component';
+import { FileSelectDirective } from 'ng2-file-upload';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    HeaderComponent],
+    HeaderComponent,
+    FileSelectDirective],
   imports: [
     BrowserModule,
     routing,

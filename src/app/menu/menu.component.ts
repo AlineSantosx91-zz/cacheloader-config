@@ -1,6 +1,6 @@
-import { MenuService } from './menu.service';
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-menu',
@@ -9,23 +9,27 @@ import { Http } from '@angular/http';
 })
 export class MenuComponent implements OnInit {
 
-  menuFile: Object[];
+  files: FileList;
 
-  constructor(private menuService: MenuService) {
+  constructor() {
 
   }
 
   ngOnInit() {
   }
 
-  myFunc() {
-
-    let pathFile: string = "file:/home/aline/dev/workspaces/backend-geral/business/mobile-teste-integrado/server/env/menu.json"
-
-    this.menuService.getMenuFile(pathFile)
-      .subscribe((data: Object[]) => { this.menuFile = data },
-      error => console.log(error),
-      () => console.log("complete", this.menuFile));
+  uploadFile(event) {
+    this.files = event.target.files;
+    var reader = new FileReader();
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsBinaryString(this.files[0]);
 
   }
+
+  _handleReaderLoaded(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    console.log(binaryString);
+    
+  }
+
 }

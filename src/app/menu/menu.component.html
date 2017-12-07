@@ -3,15 +3,15 @@
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
-          <input  id="first_name" type="text" class="validate">
-          <label for="first_name">Arquivo de menu</label>
+          <input id="file-field" name="file-field" (change)="uploadFile($event)" type="file" accept=".json">
+          <!-- <label for="first_name">Arquivo de menu</label> -->
         </div>
 
-        <div class="col s6">
-          <button class="btn waves-effect waves-light" (click)="myFunc()" type="button">Carregar
+        <!-- <div class="col s6">
+          <button class="btn waves-effect waves-light" type="button">Carregar
               <i class="material-icons right">file_upload</i>
             </button>
-        </div>
+        </div> -->
 
       </div>
     </form>

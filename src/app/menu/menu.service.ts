@@ -10,9 +10,11 @@ export class MenuService {
 
   constructor(public http:Http) { }
 
-  public getMenuFile(path: string): Observable<Object[]> {
-    return this.http.get(path)
-        .map((response: Response) => <Object[]>response.json());
-}
+  uploadFile(file) {
+    let formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+  
+    // this.http.post(url, formData, request_options)
+  }
 
 }
