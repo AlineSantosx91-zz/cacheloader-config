@@ -10,6 +10,8 @@ import { FileUploader } from 'ng2-file-upload';
 export class MenuComponent implements OnInit {
 
   files: FileList;
+  fileMenu: Object[];
+  aplicativos: string[]
 
   constructor() {
 
@@ -27,9 +29,26 @@ export class MenuComponent implements OnInit {
   }
 
   _handleReaderLoaded(readerEvt) {
-    var binaryString = readerEvt.target.result;
-    console.log(binaryString);
-    
+    this.fileMenu = new Array;
+    this.fileMenu = Object.assign(new Object(), JSON.parse(readerEvt.target.result));
+    this.criarListaAplicativos();
   }
 
+  criarListaAplicativos() {
+    this.aplicativos = new Array;
+
+    for (var i = 0; i < 100; i++) {
+      var key = Object.keys(this.fileMenu)[i];
+      if (key !== undefined) {
+        var splitted = key.split("."); 
+        this.aplicativos.push(splitted[0]);
+        // var value = this.fileMenu[key]
+      }
+    }
+  }
+
+  setAplicativo(aplicativo: string){
+    console.log(aplicativo)
+
+  }
 }

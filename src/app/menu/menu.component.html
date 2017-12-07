@@ -1,18 +1,27 @@
 <div class="container">
-  <div class="row m-t-40">
+  <div class="row">
     <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="file-field" name="file-field" (change)="uploadFile($event)" type="file" accept=".json">
-          <!-- <label for="first_name">Arquivo de menu</label> -->
+      <div class="row m-t-40">
+        <div class="file-field input-field col s6">
+          <div class="btn">
+            <span>Menu</span>
+            <input type="file" (change)="uploadFile($event)">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
         </div>
+      </div>
+      <div class="row m-t-40">
 
-        <!-- <div class="col s6">
-          <button class="btn waves-effect waves-light" type="button">Carregar
-              <i class="material-icons right">file_upload</i>
-            </button>
-        </div> -->
-
+        <div class="col s6">
+          <label>Aplicativo</label>
+          <select class="browser-default" #selectElem (change)="setAplicativo(selectElem.value)">
+              <option *ngFor="let aplicativo of aplicativos" [value]="aplicativo">
+                  {{aplicativo}}
+              </option>
+          </select>
+        </div>
       </div>
     </form>
   </div>
