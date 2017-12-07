@@ -11,10 +11,11 @@ export class MenuComponent implements OnInit {
 
   files: FileList;
   fileMenu: Object[];
-  aplicativos: string[]
+  aplicativos: string[];
+  appCombobox: boolean;
 
   constructor() {
-
+    this.appCombobox = false;
   }
 
   ngOnInit() {
@@ -40,15 +41,17 @@ export class MenuComponent implements OnInit {
     for (var i = 0; i < 100; i++) {
       var key = Object.keys(this.fileMenu)[i];
       if (key !== undefined) {
-        var splitted = key.split("."); 
-        this.aplicativos.push(splitted[0]);
+        this.aplicativos.push(key);
         // var value = this.fileMenu[key]
       }
+    }
+
+    if(this.aplicativos.length > 0){
+      this.appCombobox = true;
     }
   }
 
   setAplicativo(aplicativo: string){
     console.log(aplicativo)
-
   }
 }

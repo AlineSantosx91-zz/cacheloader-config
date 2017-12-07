@@ -12,15 +12,25 @@
           </div>
         </div>
       </div>
-      <div class="row m-t-40">
-
+      <div class="row m-t-40" [hidden]="!appCombobox">
         <div class="col s6">
-          <label>Aplicativo</label>
+          <label>Portal</label>
           <select class="browser-default" #selectElem (change)="setAplicativo(selectElem.value)">
               <option *ngFor="let aplicativo of aplicativos" [value]="aplicativo">
                   {{aplicativo}}
               </option>
           </select>
+        </div>
+      </div>
+
+      <div class="col s4 col-md-offset-6  m-t-40">
+        <div class="col s2">
+          <input name="group1" type="radio" id="test1" />
+          <label for="test1">Red</label>
+        </div>
+        <div class=" col s6">
+          <input name="group1" type="radio" id="test2" />
+          <label for="test2">Yellow</label>
         </div>
       </div>
     </form>
