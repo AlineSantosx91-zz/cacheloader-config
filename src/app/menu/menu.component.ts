@@ -13,9 +13,11 @@ export class MenuComponent implements OnInit {
   fileMenu: Object[];
   aplicativos: string[];
   appCombobox: boolean;
+  opcao: number;
 
   constructor() {
     this.appCombobox = false;
+    this.opcao = 1
   }
 
   ngOnInit() {
