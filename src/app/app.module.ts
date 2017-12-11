@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { MenuCadastroComponent } from './menu-cadastro/menu-cadastro.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
     AppComponent,
     MenuComponent,
     HeaderComponent,
-    FileSelectDirective],
+    FileSelectDirective,
+    MenuCadastroComponent],
   imports: [
     BrowserModule,
     routing,

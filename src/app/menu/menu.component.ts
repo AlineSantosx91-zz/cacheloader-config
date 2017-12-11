@@ -15,7 +15,9 @@ export class MenuComponent implements OnInit {
   appCombobox: boolean;
   opcao: number;
   teste: string;
-  log: string;
+  aplicativo: string;
+  mensagens: string[]
+  error: boolean;
 
   constructor() {
     this.appCombobox = false;
@@ -49,16 +51,25 @@ export class MenuComponent implements OnInit {
       }
     }
 
-    if(this.aplicativos.length > 0){
+    if (this.aplicativos.length > 0) {
       this.appCombobox = true;
     }
   }
 
-  setAplicativo(aplicativo: string){
-    console.log(aplicativo)
+  setAplicativo(aplicativo: string) {
+    this.aplicativo = aplicativo;
   }
 
-  cadastrarMenu(){
+  cadastrarMenu() {
+
+    this.mensagens = new Array;
+    this.error = false;
+
+    if (this.aplicativo == null || this.aplicativo == undefined) {
+      this.mensagens.push("Selecione um aplicativo");
+      this.error = true;
+    }
+    console.log(this.aplicativo);
     console.log(this.opcao);
   }
 }
