@@ -25,20 +25,18 @@
 
       <div class="col s4 col-md-offset-6 m-t-40" [hidden]="!appCombobox">
         <div class="col s3">
-          <input name="group1" type="radio" id="test1" [(ngModel)]="opcao" [value]="1"
-          [checked]="opcao==1" />
-          <label for="test1">Privado</label>
+          <input name="grp1" type="radio" id="privado" [value]=1 [(ngModel)]="opcao">
+          <label for="privado">Privado</label>
         </div>
-        <div class=" col s3">
-          <input name="group1" type="radio" id="test2" [(ngModel)]="opcao" [value]="2"
-          [checked]="opcao==2" />
-          <label for="test2">Público</label>
+        <div class="col s3">
+          <input name="grp1" type="radio" id="publico" [value]=2 [(ngModel)]="opcao">
+          <label for="publico">Público</label>
         </div>
       </div>
 
       <div class="col s10 col-md-offset-6  m-t-40">
         <div class="col s7">
-          <a class="waves-effect waves-light btn pull-right">Cadastrar</a>
+          <a class="waves-effect waves-light btn pull-right" (click)=cadastrarMenu()>Cadastrar</a>
         </div>
       </div>
     </form>

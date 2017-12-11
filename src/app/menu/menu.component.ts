@@ -14,10 +14,11 @@ export class MenuComponent implements OnInit {
   aplicativos: string[];
   appCombobox: boolean;
   opcao: number;
+  teste: string;
+  log: string;
 
   constructor() {
     this.appCombobox = false;
-    this.opcao = 1
   }
 
   ngOnInit() {
@@ -55,5 +56,9 @@ export class MenuComponent implements OnInit {
 
   setAplicativo(aplicativo: string){
     console.log(aplicativo)
+  }
+
+  cadastrarMenu(){
+    console.log(this.opcao);
   }
 }
