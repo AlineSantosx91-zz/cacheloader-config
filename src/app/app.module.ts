@@ -2,7 +2,7 @@ import { routing } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -17,7 +17,8 @@ import { MenuCadastroComponent } from './menu-cadastro/menu-cadastro.component';
     MenuComponent,
     HeaderComponent,
     FileSelectDirective,
-    MenuCadastroComponent],
+    MenuCadastroComponent
+  ],
   imports: [
     BrowserModule,
     routing,

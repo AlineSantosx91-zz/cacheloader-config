@@ -1,3 +1,4 @@
+import { Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { FileUploader } from 'ng2-file-upload';
@@ -19,7 +20,7 @@ export class MenuComponent implements OnInit {
   mensagens: string[]
   error: boolean;
 
-  constructor() {
+  constructor(private router: Router) {
     this.appCombobox = false;
   }
 
@@ -68,7 +69,13 @@ export class MenuComponent implements OnInit {
     if (this.aplicativo == null || this.aplicativo == undefined) {
       this.mensagens.push("Selecione um aplicativo");
       this.error = true;
+      return;
     }
+
+    this.router.navigate(['/menu-cadastro'])
+    
+
+
     console.log(this.aplicativo);
     console.log(this.opcao);
   }

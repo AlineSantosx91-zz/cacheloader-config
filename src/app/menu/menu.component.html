@@ -9,8 +9,8 @@
       </div>
       <div class="row m-t-40">
         <div class="file-field input-field col s6">
-          <div class="btn">
-            <span>Menu</span>
+          <div class="btn myBtn">
+            <span>Arquivo de menu</span>
             <input type="file" (change)="uploadFile($event)">
           </div>
           <div class="file-path-wrapper">
@@ -46,6 +46,35 @@
           <a class="waves-effect waves-light btn pull-right" (click)=cadastrarMenu()>Cadastrar</a>
         </div>
       </div>
+
+      <!-- MODAL -->
+      <button type="button" (click)="modal.show()">test</button>
+      <app-modal #modal>
+        <div class="app-modal-header">
+          header
+        </div>
+        <div class="app-modal-body">
+          Whatever content you like, form fields, anything
+        </div>
+        <div class="app-modal-footer">
+          <button type="button" class="btn btn-default" (click)="modal.hide()">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </app-modal>
     </form>
+
+       <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+      <form class="col s12">
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+          </div>
+        </div>
+      </form> -->
   </div>
 </div>
