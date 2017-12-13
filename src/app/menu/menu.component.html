@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <form class="col s12">
+    <div class="col s6">
       <div class="alert alert-danger" [hidden]="!error">
         <div *ngFor="let msg of mensagens">
           <span>{{msg}}</span>
@@ -8,7 +8,7 @@
 
       </div>
       <div class="row m-t-40">
-        <div class="file-field input-field col s6">
+        <div class="file-field input-field col s12">
           <div class="btn myBtn">
             <span>Arquivo de menu</span>
             <input type="file" (change)="uploadFile($event)">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="row m-t-40" [hidden]="!appCombobox">
-        <div class="col s6">
+        <div class="col s12">
           <label>Portal</label>
           <select class="browser-default" #selectElem (change)="setAplicativo(selectElem.value)">
               <option disabled selected value> -- Selecione -- </option>              
@@ -43,38 +43,17 @@
 
       <div class="col s10 col-md-offset-6 m-t-40" *ngIf="opcao!==undefined">
         <div class="col s7">
-          <a class="waves-effect waves-light btn pull-right" (click)=cadastrarMenu()>Cadastrar</a>
         </div>
       </div>
-
-      <!-- MODAL -->
-      <button type="button" (click)="modal.show()">test</button>
-      <app-modal #modal>
-        <div class="app-modal-header">
-          header
-        </div>
-        <div class="app-modal-body">
-          Whatever content you like, form fields, anything
-        </div>
-        <div class="app-modal-footer">
-          <button type="button" class="btn btn-default" (click)="modal.hide()">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </app-modal>
-    </form>
-
-       <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
-      <form class="col s12">
-        <div id="modal1" class="modal">
-          <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
-          </div>
-          <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+    <div class="col s6">
+        <div class="col s12">
+          <div class="card-panel teal">
+            <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+              </span>
           </div>
         </div>
-      </form> -->
+      </div>
   </div>
 </div>

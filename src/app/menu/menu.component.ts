@@ -1,7 +1,11 @@
 import { Router} from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Http } from '@angular/http';
+
 import { FileUploader } from 'ng2-file-upload';
+import { ModalDialogComponent } from './../common/modal-dialog/modal-dialog.component';
+
+declare var jQuery:any;
 
 @Component({
   selector: 'app-menu',
@@ -19,6 +23,13 @@ export class MenuComponent implements OnInit {
   aplicativo: string;
   mensagens: string[]
   error: boolean;
+  modalDialogComponent: ModalDialogComponent;
+  
+
+  @ViewChild('modal') myModal: ElementRef;
+
+  // @ViewChild('modal', {read: ElementRef}) private myModal: ElementRef;
+  
 
   constructor(private router: Router) {
     this.appCombobox = false;
@@ -72,10 +83,12 @@ export class MenuComponent implements OnInit {
       return;
     }
 
-    this.router.navigate(['/menu-cadastro'])
+    // this.router.navigate(['/menu-cadastro'])
+
+    //open modal using jQuery
+    console.log(this.myModal);
+    jQuery(this.myModal.nativeElement).modal('show'); 
     
-
-
     console.log(this.aplicativo);
     console.log(this.opcao);
   }
