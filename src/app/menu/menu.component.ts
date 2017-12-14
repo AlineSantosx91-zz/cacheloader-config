@@ -18,6 +18,7 @@ export class MenuComponent implements OnInit {
   fileMenu: Object[];
   aplicativos: string[];
   appCombobox: boolean;
+  appRadioButton: boolean;
   opcao: number;
   teste: string;
   aplicativo: string;
@@ -69,7 +70,10 @@ export class MenuComponent implements OnInit {
   }
 
   setAplicativo(aplicativo: string) {
+    debugger;
     this.aplicativo = aplicativo;
+    this.appRadioButton = true;
+    
   }
 
   cadastrarMenu() {
