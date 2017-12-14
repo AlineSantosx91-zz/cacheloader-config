@@ -42,7 +42,7 @@
       </div>
 
     </div>
-    <!-- *ngIf="opcao!==undefined" -->
+
     <div class="col s6" *ngIf="opcao!==undefined">
       <div class="col s12">
         <div class="card-panel white">
@@ -99,7 +99,7 @@
                   <a class="waves-effect waves-light btn right orange">Limpar</a>
                 </div>
                 <div class="col s3">
-                  <a class="waves-effect waves-light btn">Cadastrar</a>
+                  <a class="waves-effect waves-light btn" (click)="cadastrarMenu()">Cadastrar</a>
                 </div>
               </div>
             </div>
