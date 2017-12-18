@@ -1,9 +1,11 @@
+import { element } from 'protractor';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { FileUploader } from 'ng2-file-upload';
 import { ModalDialogComponent } from './../common/modal-dialog/modal-dialog.component';
+import { Filho } from './../common/model/menu-filho-model'
 
 declare var jQuery: any;
 
@@ -25,9 +27,13 @@ export class MenuComponent implements OnInit {
   mensagens: string[]
   error: boolean;
   modalDialogComponent: ModalDialogComponent;
+  filho: Filho;
 
   constructor(private router: Router) {
     this.appCombobox = false;
+    this.filho = new Filho();
+    this.filho.ativo = true;
+    this.filho.subMenu = false;
   }
 
   ngOnInit() {
@@ -73,14 +79,15 @@ export class MenuComponent implements OnInit {
 
     this.mensagens = new Array;
     this.error = false;
+    // this.filho = new Filho();
 
     if (this.aplicativo == null || this.aplicativo == undefined) {
       this.mensagens.push("Selecione um aplicativo");
       this.error = true;
       return;
     }
-
     this.varrerMenu();
+    console.log(this.filho);
   }
 
   varrerMenu() {
@@ -105,9 +112,11 @@ export class MenuComponent implements OnInit {
       var key = Object.keys(aplicativoMenu)[i];
       if (key !== undefined) {
         if (key === "filhos") {
-          let filhos = new Array;
-          filhos = aplicativoMenu[key];
-          this.obterNumerosDeOrdem(filhos);
+          let filhos: Filho[] = aplicativoMenu[key];
+          let ordens = this.obterNumerosDeOrdem(filhos);
+          this.filho.ordem = this.retornaProximoNumeroMaior(ordens);
+          this.filho.uidPai = filhos[0].uidPai;
+          this.filho.uid = this.gerarUid();
           break;
         }
       }
@@ -118,31 +127,29 @@ export class MenuComponent implements OnInit {
 
   }
 
-  obterNumerosDeOrdem(filhos: Array<String>) {
-    debugger;
+  obterNumerosDeOrdem(filhos: Array<Filho>): Array<number> {
+
     let ordens = new Array;
+    filhos.forEach(filho => {
+      ordens.push(filho.ordem)
+    });
 
-    //Todo criar um model de Filho
-  
-    for (var i = 0; i < 100; i++) {
-      var filho = filhos[i];
-      var key = Object.keys(filho)[i];
-      if (key !== undefined) {
-        debugger;
-        if (key === "ordem") {
-          ordens.push(filhos[key]);
-        }
-      }
-    }
-
-    this.retornaProximoNumeroMaior(ordens);
-    
+    return ordens;
   }
 
-  retornaProximoNumeroMaior(ordens: Array<Number>) {
-    debugger;
-
-    console.log(ordens);
-
+  retornaProximoNumeroMaior(ordens: Array<number>): number {
+    return Math.max(...ordens) + 1;
   }
+
+  gerarUid(): string{
+
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+  }
+
 }
