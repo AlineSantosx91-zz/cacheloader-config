@@ -28,6 +28,7 @@ export class MenuComponent implements OnInit {
   error: boolean;
   modalDialogComponent: ModalDialogComponent;
   filho: Filho;
+  stringRegras: string;
 
   constructor(private router: Router) {
     this.appCombobox = false;
@@ -79,7 +80,6 @@ export class MenuComponent implements OnInit {
 
     this.mensagens = new Array;
     this.error = false;
-    // this.filho = new Filho();
 
     if (this.aplicativo == null || this.aplicativo == undefined) {
       this.mensagens.push("Selecione um aplicativo");
@@ -117,6 +117,7 @@ export class MenuComponent implements OnInit {
           this.filho.ordem = this.retornaProximoNumeroMaior(ordens);
           this.filho.uidPai = filhos[0].uidPai;
           this.filho.uid = this.gerarUid();
+          this.filho.regras = this.converterRegrasStringToArray();
           break;
         }
       }
@@ -141,15 +142,21 @@ export class MenuComponent implements OnInit {
     return Math.max(...ordens) + 1;
   }
 
-  gerarUid(): string{
+  gerarUid(): string {
 
     var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (d + Math.random()*16)%16 | 0;
-        d = Math.floor(d/16);
-        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
     return uuid;
+  }
+
+
+  converterRegrasStringToArray(): Array<string> {
+
+    return this.stringRegras.split(",");
   }
 
 }
