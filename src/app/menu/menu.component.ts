@@ -49,7 +49,6 @@ export class MenuComponent implements OnInit {
   }
 
   _handleReaderLoaded(readerEvt) {
-    this.fileMenu = new Array;
     this.fileMenu = Object.assign(new Object(), JSON.parse(readerEvt.target.result));
     this.criarListaAplicativos();
   }
@@ -87,7 +86,11 @@ export class MenuComponent implements OnInit {
       return;
     }
     this.varrerMenu();
-    console.log(this.filho);
+    debugger;
+    var pai = this.fileMenu[this.aplicativo];
+    let filhos: Filho[] = pai["filhos"];
+    filhos.push(this.filho);
+    console.log(filhos);
   }
 
   varrerMenu() {
