@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -84,6 +85,46 @@ export class MenuCadastroComponent implements OnInit {
 
   varrerAplicativoCartoes(aplicativoMenu: string) {
 
+    for (var i = 0; i < 100; i++) {
+      var key = Object.keys(aplicativoMenu)[i];
+      if (key !== undefined) {
+        if (key === "filhos") {
+          debugger;
+          let filhos1: Filho[] = aplicativoMenu[key];
+          let filhos2: Filho[] = new Array;
+
+
+          if (this.menuCommponent.opcao === 1) {
+            // publico
+            filhos1.forEach(element => {
+              if(element.chaveMobile === "publico"){
+                filhos2 = element[key]
+              }
+            });
+
+          } else if (this.menuCommponent.opcao === 2) {
+            //privado
+            filhos1.forEach(element => {
+              if(element.chaveMobile === "privado"){
+                filhos2 = element[key]
+              }
+            });
+          } else {
+            //erro
+          }
+
+          debugger;
+
+          let ordens = this.obterNumerosDeOrdem(filhos2);
+          this.filho.ordem = this.retornaProximoNumeroMaior(ordens);
+          this.filho.uidPai = filhos1[0].uidPai;
+          this.filho.uid = this.gerarUid();
+          this.filho.regras = this.converterRegrasStringToArray();
+          break;
+        }
+      }
+    }
+
   }
 
   obterNumerosDeOrdem(filhos: Array<Filho>): Array<number> {
@@ -118,10 +159,10 @@ export class MenuCadastroComponent implements OnInit {
   downloadFile(data: any) {
 
     const blob: Blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-    const fileName: string = 'my-test.json';
+    const fileName: string = 'menu.json';
     const objectUrl: string = URL.createObjectURL(blob);
 
-    const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;    
+    const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
     a.href = objectUrl;
     a.download = fileName;
     document.body.appendChild(a);
@@ -130,5 +171,5 @@ export class MenuCadastroComponent implements OnInit {
     document.body.removeChild(a);
     URL.revokeObjectURL(objectUrl);
   }
-  
+
 }

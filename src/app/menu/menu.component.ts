@@ -23,6 +23,7 @@ export class MenuComponent implements OnInit {
   appCombobox: boolean;
   appRadioButton: boolean;
   aplicativo: string;
+  opcao: number;
 
   constructor(private router: Router) {
     this.appCombobox = false;
