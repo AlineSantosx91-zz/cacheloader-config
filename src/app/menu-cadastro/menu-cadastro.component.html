@@ -1,0 +1,75 @@
+<div class="col s6">
+    <div class="col s12">
+      <div class="card-panel white">
+        <form>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="nome" name="nome" type="text" [(ngModel)]="filho.nome">
+              <label for="nome">Nome</label>
+            </div>
+
+            <div class="input-field col s12">
+              <input id="contexto" name="contexto" type="text" class="validate" [(ngModel)]="filho.contexto">
+              <label for="contexto">Contexto</label>
+            </div>
+
+            <div class="input-field col s12">
+              <input id="uri" name="uri" type="text" class="validate" [(ngModel)]="filho.uri">
+              <label for="uri">Uri</label>
+            </div>
+<!-- 
+            <div class="input-field col s12">
+              <input disabled id="uidPai" type="text" name="uidPai" class="validate" [(ngModel)]="filho.uidPai">
+              <label for="uidPai">UidPai</label>
+            </div>
+
+            <div class="input-field col s12">
+              <input disabled id="uid" type="text" name="uid" class="validate" [(ngModel)]="filho.uid">
+              <label for="uid">Uid</label>
+            </div> -->
+
+            <div class="input-field col s12">
+              <input id="chaveMobile" name="chaveMobile" type="text" class="validate" [(ngModel)]="filho.chaveMobile">
+              <label for="chaveMobile">Chave Mobile</label>
+            </div>
+
+            <div class="input-field col s12">
+              <input id="icone" name="icone" type="text" class="validate" [(ngModel)]="filho.icone">
+              <label for="icone">Ícone</label>
+            </div>
+
+            <div class="col s6">
+              <label>Ativo</label>
+              <div class="switch">
+                <label>NÃO<input type = "checkbox" [checked]="filho.ativo" (change)="filho.ativo = !filho.ativo" checked>
+                   <span class = "lever"></span>SIM</label></div>
+            </div>
+
+            <div class="col s6">
+              <label>Submenu</label>
+              <div class="switch"><label>NÃO<input type = "checkbox" [checked]="filho.subMenu" (change)="filho.subMenu = !filho.subMenu" >
+                   <span class = "lever"></span>SIM</label></div>
+            </div>
+            <div class="input-field col s12">
+              <input id="rota" name="rota" type="text" class="validate" [(ngModel)]="filho.rota">
+              <label for="rota">Rota</label>
+            </div>
+
+            <div class="input-field col s12">
+              <textarea id="regras" name="regras" [(ngModel)]="stringRegras" class="materialize-textarea" placeholder="Insira suas regras separadas por vírgula, ex: regra1, regra2, regra3"></textarea>
+              <label for="regras">Regras</label>
+            </div>
+
+            <div class="col s12">
+              <div class="col s9">
+                <a class="waves-effect waves-light btn right orange">Limpar</a>
+              </div>
+              <div class="col s3">
+                <a class="waves-effect waves-light btn" (click)="cadastrarMenu()">Cadastrar</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

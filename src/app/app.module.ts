@@ -12,6 +12,7 @@ import { MenuCadastroComponent } from './menu-cadastro/menu-cadastro.component';
 import { ModalDialogComponent } from './common/modal-dialog/modal-dialog.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,8 @@ import { ModalDialogComponent } from './common/modal-dialog/modal-dialog.compone
     routing,
     HttpModule,
     FormsModule
+  ],
+  exports: [
   ],
   providers: [
   ],
