@@ -42,10 +42,10 @@ export class MenuCadastroComponent implements OnInit {
     }
     this.varrerMenu();
     debugger;
-    var pai = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo];
-    let filhos: Filho[] = pai["filhos"];
+    let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"];
     filhos.push(this.filho);
-    console.log(filhos);
+    this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"] = filhos;
+    console.log(this.menuCommponent.fileMenu);
   }
 
   varrerMenu() {
@@ -115,5 +115,11 @@ export class MenuCadastroComponent implements OnInit {
   converterRegrasStringToArray(): Array<string> {
 
     return this.stringRegras.split(",");
+  }
+
+  downloadFile(data: FileList){
+    var blob = new Blob([data], { type: 'json' });
+    var url= window.URL.createObjectURL(blob);
+    window.open(url);
   }
 }
