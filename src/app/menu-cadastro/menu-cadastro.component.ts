@@ -15,16 +15,16 @@ export class MenuCadastroComponent implements OnInit {
   mensagens: string[]
   error: boolean;
   filho: Filho;
-  stringRegras: string;  
+  stringRegras: string;
   menuCommponent: MenuComponent
-  
+
 
   constructor(private router: Router, menuComponent: MenuComponent) {
     this.filho = new Filho();
     this.filho.ativo = true;
     this.filho.subMenu = false;
     this.menuCommponent = menuComponent
-   }
+  }
 
   ngOnInit() {
   }
@@ -45,7 +45,7 @@ export class MenuCadastroComponent implements OnInit {
     let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"];
     filhos.push(this.filho);
     this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"] = filhos;
-    console.log(this.menuCommponent.fileMenu);
+    this.downloadFile(this.menuCommponent.fileMenu);
   }
 
   varrerMenu() {
@@ -111,15 +111,24 @@ export class MenuCadastroComponent implements OnInit {
     return uuid;
   }
 
-
   converterRegrasStringToArray(): Array<string> {
-
     return this.stringRegras.split(",");
   }
 
-  downloadFile(data: FileList){
-    var blob = new Blob([data], { type: 'json' });
-    var url= window.URL.createObjectURL(blob);
-    window.open(url);
+  downloadFile(data: any) {
+
+    const blob: Blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const fileName: string = 'my-test.json';
+    const objectUrl: string = URL.createObjectURL(blob);
+
+    const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;    
+    a.href = objectUrl;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(objectUrl);
   }
+  
 }
