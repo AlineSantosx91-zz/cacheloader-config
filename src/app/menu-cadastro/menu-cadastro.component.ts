@@ -49,30 +49,15 @@ export class MenuCadastroComponent implements OnInit {
     if (this.menuCadastroService.isHomeCartoes()) {
       this.adicionaFilhosHomeCartoes()
     } else {
-      this.adicionaFilhosOutrasHomes()
+      this.setarFilhoNoPaiOutrasHomes()
     }
 
     this.menuCadastroService.downloadFile(this.menuComponent.fileMenu);
   }
 
-  // populaDadosNovoFilho() {
-
-  //   let filhos: Filho[] = this.menuCadastroService.retornaFilhosDoAplicativoSelecionado();
-  //   let ordens = this.menuCadastroService.obterNumerosDeOrdem(filhos);
-  //   this.filho.ordem = this.menuCadastroService.retornaProximoNumeroMaior(ordens);
-  //   this.filho.uidPai = filhos[0].uidPai;
-  //   this.filho.uid = this.menuCadastroService.gerarUid();
-  //   this.filho.regras = this.menuCadastroService.converterRegrasStringToArray(this.stringRegras);
-
-  // }
-
-
-
-
   adicionaFilhosHomeCartoes() {
 
     let filhos: Filho[] = this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"];
-
 
     if (this.menuComponent.opcao === 1) {
 
@@ -105,7 +90,7 @@ export class MenuCadastroComponent implements OnInit {
     return;
   }
 
-  adicionaFilhosOutrasHomes() {
+  setarFilhoNoPaiOutrasHomes() {
     let filhos: Filho[] = this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"];
 
     let ordens = this.menuCadastroService.obterNumerosDeOrdem(filhos);

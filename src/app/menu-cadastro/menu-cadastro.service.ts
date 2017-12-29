@@ -7,73 +7,7 @@ import { Filho } from './../common/model/menu-filho-model';
 @Injectable()
 export class MenuCadastroService {
 
-    // homeCartoes: boolean;
-
     constructor(private menuComponent: MenuComponent) { }
-
-
-    // retornaFilhosDoAplicativoSelecionado() {
-    //     for (var i = 0; i < 100; i++) {
-    //         var key = Object.keys(this.menuComponent.fileMenu)[i];
-    //         if (key !== undefined) {
-
-    //             if (key === this.menuComponent.aplicativo && key !== "mobileitaucard.home-mobile-cartoes") {
-    //                 this.homeCartoes = false;
-    //                 // return this.retornaFilhoOutroAplicativo(this.menuComponent.fileMenu[key]);
-
-    //             }
-    //             if (key === this.menuComponent.aplicativo && key === "mobileitaucard.home-mobile-cartoes") {
-    //                 // this.retornaFilhoAplicativoCartoes(this.menuComponent.fileMenu[key]);
-    //                 this.homeCartoes = true;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
-
-    // retornaFilhoOutroAplicativo(aplicativoMenu: string) {
-    //     for (var i = 0; i < 100; i++) {
-    //         var key = Object.keys(aplicativoMenu)[i];
-    //         if (key !== undefined) {
-    //             if (key === "filhos") {
-    //                 let filhos: Filho[] = aplicativoMenu[key];
-    //                 return filhos;
-    //             }
-    //         }
-    //     }
-    // }
-
-
-    // retornaFilhoAplicativoCartoes(aplicativoMenu: string) {
-
-    //     for (var i = 0; i < 100; i++) {
-    //         var key = Object.keys(aplicativoMenu)[i];
-    //         if (key !== undefined) {
-    //             if (key === "filhos") {
-    //                 let filhos1: Filho[] = aplicativoMenu[key];
-    //                 let filhos2: Filho[] = new Array;
-
-    //                 if (this.menuComponent.opcao === 1) {
-    //                     filhos1.forEach(element => {
-    //                         if (element.chaveMobile === "publico") {
-    //                             filhos2 = element[key]
-    //                         }
-    //                     });
-
-    //                 } else if (this.menuComponent.opcao === 2) {
-    //                     filhos1.forEach(element => {
-    //                         if (element.chaveMobile === "privado") {
-    //                             filhos2 = element[key]
-    //                         }
-    //                     });
-    //                 } 
-
-    //                 return filhos2;
-    //             }
-    //         }
-    //     }
-    // }
-
 
     obterNumerosDeOrdem(filhos: Array<Filho>): Array<number> {
 
@@ -126,8 +60,5 @@ export class MenuCadastroService {
             return true;
         }
         return false;
-        // return this.homeCartoes;
     }
-
-
 }
