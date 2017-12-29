@@ -53,7 +53,6 @@ export class MenuComponent implements OnInit {
       var key = Object.keys(this.fileMenu)[i];
       if (key !== undefined) {
         this.aplicativos.push(key);
-        // var value = this.fileMenu[key]
       }
     }
 

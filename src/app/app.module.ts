@@ -10,6 +10,7 @@ import { HeaderComponent } from './common/header/header.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { MenuCadastroComponent } from './menu-cadastro/menu-cadastro.component';
 import { ModalDialogComponent } from './common/modal-dialog/modal-dialog.component';
+import { MenuCadastroService } from './menu-cadastro/menu-cadastro.service';
 
 
 
@@ -31,6 +32,7 @@ import { ModalDialogComponent } from './common/modal-dialog/modal-dialog.compone
   exports: [
   ],
   providers: [
+    MenuCadastroService
   ],
   bootstrap: [AppComponent]
 })
