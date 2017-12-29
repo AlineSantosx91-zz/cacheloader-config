@@ -12,7 +12,7 @@ export class Filho {
     subMenu: boolean;
     rota: string;
     regras: Array<string>;
-    filhos: Array<string>;
+    filhos: Array<Filho>;
 
     constructor(){}
 }

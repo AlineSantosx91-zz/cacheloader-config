@@ -42,33 +42,15 @@ export class MenuCadastroComponent implements OnInit {
       this.error = true;
       return;
     }
+
     this.varrerMenu();
-    debugger;
 
-    debugger;
     if (this.homeCartoes) {
-
-      if (this.menuCommponent.opcao === 1) {
-
-        let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"][0]["filhos"];
-        filhos.push(this.filho);
-        this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"][0]["filhos"] = filhos;
-
-      } else {
-
-        let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"][1]["filhos"];
-        filhos.push(this.filho);
-        this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"][1]["filhos"] = filhos;
-        
-      }
-
+      this.adicionaFilhosHomeCartoes()
     } else {
-
-      let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"];
-      filhos.push(this.filho);
-      this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"] = filhos;
-
+      this.adicionaFilhosOutrasHomes()
     }
+
     this.downloadFile(this.menuCommponent.fileMenu);
   }
 
@@ -117,9 +99,7 @@ export class MenuCadastroComponent implements OnInit {
           let filhos1: Filho[] = aplicativoMenu[key];
           let filhos2: Filho[] = new Array;
 
-
           if (this.menuCommponent.opcao === 1) {
-            // publico
             filhos1.forEach(element => {
               if (element.chaveMobile === "publico") {
                 filhos2 = element[key]
@@ -127,14 +107,15 @@ export class MenuCadastroComponent implements OnInit {
             });
 
           } else if (this.menuCommponent.opcao === 2) {
-            //privado
             filhos1.forEach(element => {
               if (element.chaveMobile === "privado") {
                 filhos2 = element[key]
               }
             });
           } else {
-            //erro
+            this.mensagens.push("Houve um erro, atualize a tela e tente novamente");
+            this.error = true;
+            return;
           }
 
           let ordens = this.obterNumerosDeOrdem(filhos2);
@@ -146,7 +127,6 @@ export class MenuCadastroComponent implements OnInit {
         }
       }
     }
-
   }
 
   obterNumerosDeOrdem(filhos: Array<Filho>): Array<number> {
@@ -192,6 +172,40 @@ export class MenuCadastroComponent implements OnInit {
 
     document.body.removeChild(a);
     URL.revokeObjectURL(objectUrl);
+  }
+
+  adicionaFilhosHomeCartoes() {
+
+    let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"];
+
+    if (this.menuCommponent.opcao === 1) {
+
+      filhos.forEach(filho => {
+        if (filho.chaveMobile === "publico") {
+          this.setarFilhoNoPaiHomeCartoes(filho, filhos);
+        }
+      });
+
+    } else {
+
+      filhos.forEach(filho => {
+        if (filho.chaveMobile === "privado") {
+          this.setarFilhoNoPaiHomeCartoes(filho, filhos);
+        }
+      });
+    }
+  }
+
+  setarFilhoNoPaiHomeCartoes(filho: Filho, filhos: Filho[]) {
+    filho.filhos.push(this.filho);
+    this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"] = filhos;
+    return;
+  }
+
+  adicionaFilhosOutrasHomes() {
+    let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"];
+    filhos.push(this.filho);
+    this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"] = filhos;
   }
 
 }
