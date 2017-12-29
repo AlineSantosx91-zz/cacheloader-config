@@ -18,6 +18,7 @@ export class MenuCadastroComponent implements OnInit {
   filho: Filho;
   stringRegras: string;
   menuCommponent: MenuComponent
+  homeCartoes: boolean;
 
 
   constructor(private router: Router, menuComponent: MenuComponent) {
@@ -43,9 +44,31 @@ export class MenuCadastroComponent implements OnInit {
     }
     this.varrerMenu();
     debugger;
-    let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"];
-    filhos.push(this.filho);
-    this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"] = filhos;
+
+    debugger;
+    if (this.homeCartoes) {
+
+      if (this.menuCommponent.opcao === 1) {
+
+        let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"][0]["filhos"];
+        filhos.push(this.filho);
+        this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"][0]["filhos"] = filhos;
+
+      } else {
+
+        let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"][1]["filhos"];
+        filhos.push(this.filho);
+        this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"][1]["filhos"] = filhos;
+        
+      }
+
+    } else {
+
+      let filhos: Filho[] = this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"];
+      filhos.push(this.filho);
+      this.menuCommponent.fileMenu[this.menuCommponent.aplicativo]["filhos"] = filhos;
+
+    }
     this.downloadFile(this.menuCommponent.fileMenu);
   }
 
@@ -56,10 +79,12 @@ export class MenuCadastroComponent implements OnInit {
 
         if (key === this.menuCommponent.aplicativo && key !== "mobileitaucard.home-mobile-cartoes") {
           this.varrerAplicativo(this.menuCommponent.fileMenu[key]);
+          this.homeCartoes = false;
           break;
         }
         if (key === this.menuCommponent.aplicativo && key === "mobileitaucard.home-mobile-cartoes") {
           this.varrerAplicativoCartoes(this.menuCommponent.fileMenu[key]);
+          this.homeCartoes = true;
           break;
         }
       }
@@ -89,7 +114,6 @@ export class MenuCadastroComponent implements OnInit {
       var key = Object.keys(aplicativoMenu)[i];
       if (key !== undefined) {
         if (key === "filhos") {
-          debugger;
           let filhos1: Filho[] = aplicativoMenu[key];
           let filhos2: Filho[] = new Array;
 
@@ -97,7 +121,7 @@ export class MenuCadastroComponent implements OnInit {
           if (this.menuCommponent.opcao === 1) {
             // publico
             filhos1.forEach(element => {
-              if(element.chaveMobile === "publico"){
+              if (element.chaveMobile === "publico") {
                 filhos2 = element[key]
               }
             });
@@ -105,15 +129,13 @@ export class MenuCadastroComponent implements OnInit {
           } else if (this.menuCommponent.opcao === 2) {
             //privado
             filhos1.forEach(element => {
-              if(element.chaveMobile === "privado"){
+              if (element.chaveMobile === "privado") {
                 filhos2 = element[key]
               }
             });
           } else {
             //erro
           }
-
-          debugger;
 
           let ordens = this.obterNumerosDeOrdem(filhos2);
           this.filho.ordem = this.retornaProximoNumeroMaior(ordens);
