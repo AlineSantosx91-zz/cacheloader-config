@@ -24,9 +24,11 @@ export class MenuComponent implements OnInit {
   appRadioButton: boolean;
   aplicativo: string;
   opcao: number;
+  homeCartoes: boolean;
 
   constructor(private router: Router) {
     this.appCombobox = false;
+    this.homeCartoes = undefined;
   }
 
   ngOnInit() {
@@ -62,12 +64,18 @@ export class MenuComponent implements OnInit {
   }
 
   setAplicativo(aplicativo: string) {
+    this.opcao = undefined;
     this.aplicativo = aplicativo;
-    this.appRadioButton = true;
-
+    if (this.aplicativo === "mobileitaucard.home-mobile-cartoes") {
+      this.appRadioButton = true;
+      this.homeCartoes = true;
+    } else {
+      this.appRadioButton = false;
+      this.homeCartoes = false;
+    }
   }
 
- public getApplicativo(): string{
+  public getApplicativo(): string {
     return this.aplicativo;
   }
 
