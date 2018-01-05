@@ -6,32 +6,38 @@ import { MenuCadastroService } from './menu-cadastro.service';
 import { MenuOpcoesComponent } from './../menu-opcoes/menu-opcoes.component';
 import { AlertsComponent } from './../common/alerts/alerts.component';
 import { element } from 'protractor';
+import { MenuOpcoesService } from '../menu-opcoes/menu-opcoes.service';
 
 
 @Component({
   selector: 'app-menu-cadastro',
   templateUrl: './menu-cadastro.component.html',
   styleUrls: ['./menu-cadastro.component.css'],
-  providers: [MenuCadastroService, AlertsComponent, MenuOpcoesComponent]
+  providers: [MenuCadastroService, AlertsComponent, MenuOpcoesComponent, MenuOpcoesService]
 
 })
 export class MenuCadastroComponent implements OnInit {
 
   filho: Filho;
   stringRegras: string;
-  menuCadastroService: MenuCadastroService
+  menuCadastroService: MenuCadastroService;
   // alertsComponent: AlertsComponent
   menuOpcoesComponent: MenuOpcoesComponent;
+  menuOpcoesService: MenuOpcoesService;
+
 
   constructor(private router: Router,
     _menuOpcoesComponent: MenuOpcoesComponent,
     _menuCadastroService: MenuCadastroService,
-    private alertsComponent: AlertsComponent) {
+    private alertsComponent: AlertsComponent,
+    _menuOpcoesService: MenuOpcoesService) {
+      debugger;
     this.filho = new Filho();
     this.filho.ativo = true;
     this.filho.subMenu = false;
     this.menuCadastroService = _menuCadastroService;
     this.menuOpcoesComponent = _menuOpcoesComponent;
+    this.menuOpcoesService = _menuOpcoesService;
   }
 
   ngOnInit() {
@@ -45,7 +51,7 @@ export class MenuCadastroComponent implements OnInit {
     this.alertsComponent.mensagens = new Array;
     this.alertsComponent.error = false;
     this.alertsComponent.success = false;
-    console.log(this.menuOpcoesComponent.getAplicativo());
+    console.log(this.menuOpcoesService.recuperarAplicativo());
     if (this.menuOpcoesComponent.getAplicativo() == null || this.menuOpcoesComponent.aplicativo == undefined) {
       this.alertsComponent.setMessage("Selecione um aplicativo");
       this.alertsComponent.setError(true);
