@@ -1,4 +1,4 @@
-import { MenuComponent } from './../menu/menu.component';
+import { MenuOpcoesComponent } from './../menu-opcoes/menu-opcoes.component';
 import { Injectable } from '@angular/core';
 
 import { Filho } from './../common/model/menu-filho-model';
@@ -7,7 +7,7 @@ import { Filho } from './../common/model/menu-filho-model';
 @Injectable()
 export class MenuCadastroService {
 
-    constructor(private menuComponent: MenuComponent) { }
+    constructor(private menuOpcoesComponent: MenuOpcoesComponent) { }
 
     obterNumerosDeOrdem(filhos: Array<Filho>): Array<number> {
 
@@ -35,7 +35,9 @@ export class MenuCadastroService {
     }
 
     converterRegrasStringToArray(stringRegras: string): Array<string> {
-        return stringRegras.split(",");
+        if(stringRegras !== undefined){
+            return stringRegras.split(",");
+        }
     }
 
     downloadFile(data: any) {
@@ -56,7 +58,7 @@ export class MenuCadastroService {
 
 
     isHomeCartoes(): boolean {
-        if (this.menuComponent.aplicativo === "mobileitaucard.home-mobile-cartoes") {
+        if (this.menuOpcoesComponent.aplicativo === "mobileitaucard.home-mobile-cartoes") {
             return true;
         }
         return false;

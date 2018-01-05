@@ -1,0 +1,37 @@
+<div class="col s6">
+  <div class="row m-t-40">
+    <div class="file-field input-field col s12">
+      <div class="btn myBtn">
+        <span>Arquivo de menu</span>
+        <input type="file" (change)="uploadFile($event)">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+      </div>
+    </div>
+  </div>
+  <div class="row m-t-40" [hidden]="!appCombobox">
+    <div class="col s12">
+      <label>Portal</label>
+      <select class="browser-default" #selectElem (change)="setAplicativo(selectElem.value)">
+            <option disabled selected value> -- Selecione -- </option>              
+            <option *ngFor="let aplicativo of aplicativos" [value]="aplicativo">
+                {{aplicativo}}
+            </option>
+        </select>
+    </div>
+  </div>
+
+  <div class="col s6 col-md-offset-6 m-t-40" [hidden]="!appRadioButton">
+    <div class="col s4">
+        <!-- [value]=2 [(ngModel)]="opcao" -->
+      <input name="grp1" type="radio" id="privado"  (change)="setOpcao(2)">
+      <label for="privado">Privado</label>
+    </div>
+    <div class="col s4">
+        <!-- [value]=1 [(ngModel)]="opcao" -->
+      <input name="grp1" type="radio" id="publico"  (change)="setOpcao(1)">
+      <label for="publico">Público</label>
+    </div>
+  </div>
+</div>

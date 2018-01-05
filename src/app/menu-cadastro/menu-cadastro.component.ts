@@ -1,48 +1,54 @@
-import { element } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Filho } from './../common/model/menu-filho-model';
-import { MenuComponent } from './../menu/menu.component';
 import { MenuCadastroService } from './menu-cadastro.service';
+import { MenuOpcoesComponent } from './../menu-opcoes/menu-opcoes.component';
+import { AlertsComponent } from './../common/alerts/alerts.component';
+import { element } from 'protractor';
 
 
 @Component({
   selector: 'app-menu-cadastro',
   templateUrl: './menu-cadastro.component.html',
   styleUrls: ['./menu-cadastro.component.css'],
-  providers: [MenuCadastroService]
+  providers: [MenuCadastroService, AlertsComponent, MenuOpcoesComponent]
 
 })
 export class MenuCadastroComponent implements OnInit {
 
-  mensagens: string[]
-  error: boolean;
   filho: Filho;
   stringRegras: string;
   menuCadastroService: MenuCadastroService
+  // alertsComponent: AlertsComponent
+  menuOpcoesComponent: MenuOpcoesComponent;
 
   constructor(private router: Router,
-    private menuComponent: MenuComponent,
-    _menuCadastroService: MenuCadastroService) {
+    _menuOpcoesComponent: MenuOpcoesComponent,
+    _menuCadastroService: MenuCadastroService,
+    private alertsComponent: AlertsComponent) {
     this.filho = new Filho();
     this.filho.ativo = true;
     this.filho.subMenu = false;
     this.menuCadastroService = _menuCadastroService;
+    this.menuOpcoesComponent = _menuOpcoesComponent;
   }
 
   ngOnInit() {
+    // this.alertsComponent.setError(true);
   }
 
 
   cadastrarMenu() {
+    debugger;
 
-    this.mensagens = new Array;
-    this.error = false;
-
-    if (this.menuComponent.aplicativo == null || this.menuComponent.aplicativo == undefined) {
-      this.mensagens.push("Selecione um aplicativo");
-      this.error = true;
+    this.alertsComponent.mensagens = new Array;
+    this.alertsComponent.error = false;
+    this.alertsComponent.success = false;
+    console.log(this.menuOpcoesComponent.getAplicativo());
+    if (this.menuOpcoesComponent.getAplicativo() == null || this.menuOpcoesComponent.aplicativo == undefined) {
+      this.alertsComponent.setMessage("Selecione um aplicativo");
+      this.alertsComponent.setError(true);
       return;
     }
 
@@ -52,14 +58,18 @@ export class MenuCadastroComponent implements OnInit {
       this.setarFilhoNoPaiOutrasHomes()
     }
 
-    this.menuCadastroService.downloadFile(this.menuComponent.fileMenu);
+    this.menuCadastroService.downloadFile(this.menuOpcoesComponent.fileMenu);
+    this.alertsComponent.setMessage("Cadastro realizado com sucesso");
+    this.alertsComponent.setSuccess(true);
+    console.log(this.alertsComponent.success);
+    // this.limparCampos();
   }
 
   adicionaFilhosHomeCartoes() {
 
-    let filhos: Filho[] = this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"];
+    let filhos: Filho[] = this.menuOpcoesComponent.fileMenu[this.menuOpcoesComponent.aplicativo]["filhos"];
 
-    if (this.menuComponent.opcao === 1) {
+    if (this.menuOpcoesComponent.opcao === 1) {
 
       filhos.forEach(filho => {
         if (filho.chaveMobile === "publico") {
@@ -86,12 +96,12 @@ export class MenuCadastroComponent implements OnInit {
     this.filho.regras = this.menuCadastroService.converterRegrasStringToArray(this.stringRegras);
 
     filho.filhos.push(this.filho);
-    this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"] = filhos;
+    this.menuOpcoesComponent.fileMenu[this.menuOpcoesComponent.aplicativo]["filhos"] = filhos;
     return;
   }
 
   setarFilhoNoPaiOutrasHomes() {
-    let filhos: Filho[] = this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"];
+    let filhos: Filho[] = this.menuOpcoesComponent.fileMenu[this.menuOpcoesComponent.aplicativo]["filhos"];
 
     let ordens = this.menuCadastroService.obterNumerosDeOrdem(filhos);
     this.filho.ordem = this.menuCadastroService.retornaProximoNumeroMaior(ordens);
@@ -100,7 +110,14 @@ export class MenuCadastroComponent implements OnInit {
     this.filho.regras = this.menuCadastroService.converterRegrasStringToArray(this.stringRegras);
 
     filhos.push(this.filho);
-    this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"] = filhos;
+    this.menuOpcoesComponent.fileMenu[this.menuOpcoesComponent.aplicativo]["filhos"] = filhos;
+  }
+
+  limparCampos(){
+    // this.alertsComponent.error = false;
+    this.filho = new Filho();
+    this.stringRegras= "";
+    this.menuOpcoesComponent.limparCampos();
   }
 
 }

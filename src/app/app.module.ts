@@ -10,6 +10,8 @@ import { HeaderComponent } from './common/header/header.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { MenuCadastroComponent } from './menu-cadastro/menu-cadastro.component';
 import { ModalDialogComponent } from './common/modal-dialog/modal-dialog.component';
+import { AlertsComponent } from './common/alerts/alerts.component';
+import { MenuOpcoesComponent } from './menu-opcoes/menu-opcoes.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { ModalDialogComponent } from './common/modal-dialog/modal-dialog.compone
     HeaderComponent,
     FileSelectDirective,
     MenuCadastroComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
+    AlertsComponent,
+    MenuOpcoesComponent
   ],
   imports: [
     BrowserModule,

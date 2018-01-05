@@ -1,47 +1,9 @@
 <div class="container">
   <div class="row">
-    <div class="col s6">
-      <div class="alert alert-danger" [hidden]="!error">
-        <div *ngFor="let msg of mensagens">
-          <span>{{msg}}</span>
-        </div>
-
-      </div>
-      <div class="row m-t-40">
-        <div class="file-field input-field col s12">
-          <div class="btn myBtn">
-            <span>Arquivo de menu</span>
-            <input type="file" (change)="uploadFile($event)">
-          </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
-          </div>
-        </div>
-      </div>
-      <div class="row m-t-40" [hidden]="!appCombobox">
-        <div class="col s12">
-          <label>Portal</label>
-          <select class="browser-default" #selectElem (change)="setAplicativo(selectElem.value)">
-              <option disabled selected value> -- Selecione -- </option>              
-              <option *ngFor="let aplicativo of aplicativos" [value]="aplicativo">
-                  {{aplicativo}}
-              </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col s6 col-md-offset-6 m-t-40" [hidden]="!appRadioButton">
-        <div class="col s4">
-          <input name="grp1" type="radio" id="privado" [value]=2 [(ngModel)]="opcao">
-          <label for="privado">Privado</label>
-        </div>
-        <div class="col s4">
-          <input name="grp1" type="radio" id="publico" [value]=1 [(ngModel)]="opcao">
-          <label for="publico">Público</label>
-        </div>
-      </div>
-
-    </div>
+    <app-alerts></app-alerts>
+    <app-menu-opcoes (onChangeAplicativo)="watch($event)"></app-menu-opcoes>
     <app-menu-cadastro *ngIf="opcao!==undefined || homeCartoes===false"></app-menu-cadastro>
   </div>
 </div>
+
+<!-- funcao do emiter e nova funcao -->

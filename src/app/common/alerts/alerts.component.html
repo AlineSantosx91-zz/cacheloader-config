@@ -1,0 +1,10 @@
+<div class="alert alert-danger" *ngIf="error">
+  <div *ngFor="let msg of mensagens">
+    <span>{{msg}}</span>
+  </div>
+</div>
+<div class="alert alert-success" *ngIf="success">
+  <div *ngFor="let msg of mensagens">
+    <span>{{msg}}</span>
+  </div>
+</div>
