@@ -1,18 +1,16 @@
 import { element } from 'protractor';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, Injectable, Output, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { FileUploader } from 'ng2-file-upload';
 import { ModalDialogComponent } from './../common/modal-dialog/modal-dialog.component';
-import { Filho } from './../common/model/menu-filho-model';
-import { MenuOpcoesService } from './menu-opcoes.service';
+import { Filho } from './../common/model/menu-filho-model'
 
 @Component({
   selector: 'app-menu-opcoes',
   templateUrl: './menu-opcoes.component.html',
-  styleUrls: ['./menu-opcoes.component.css'],
-  providers: [ MenuOpcoesService]
+  styleUrls: ['./menu-opcoes.component.css']
 })
 @Injectable()
 export class MenuOpcoesComponent implements OnInit {
@@ -25,24 +23,21 @@ export class MenuOpcoesComponent implements OnInit {
   aplicativo: string;
   opcao: number;
   homeCartoes: boolean;
-  menuOpcoesService: MenuOpcoesService;
-  @Output() onChangeAplicativo = new EventEmitter();
+  @Output() onChangeAplicativo = new EventEmitter<any>();
+  
 
-  constructor(private router: Router, _menuOpcoesService: MenuOpcoesService) {
-    console.log(this.aplicativo);
-    this.menuOpcoesService = _menuOpcoesService;
-    debugger;
+  constructor() {
+    console.log(`construtor do MenuOpcoesComponent`);
   }
 
   ngOnInit() {
-    debugger;
     this.appCombobox = false;
     this.homeCartoes = undefined;
   }
 
   uploadFile(event) {
     this.files = event.target.files;
-    const reader = new FileReader();
+    var reader = new FileReader();
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsBinaryString(this.files[0]);
 
@@ -56,8 +51,8 @@ export class MenuOpcoesComponent implements OnInit {
   criarListaAplicativos() {
     this.aplicativos = new Array;
 
-    for (let i = 0; i < 100; i++) {
-      const key = Object.keys(this.fileMenu)[i];
+    for (var i = 0; i < 100; i++) {
+      var key = Object.keys(this.fileMenu)[i];
       if (key !== undefined) {
         this.aplicativos.push(key);
       }
@@ -69,11 +64,10 @@ export class MenuOpcoesComponent implements OnInit {
   }
 
   setAplicativo(aplicativo: string ) {
-    debugger;
 
     this.opcao = undefined;
     this.aplicativo = aplicativo;
-    if (this.aplicativo === 'mobileitaucard.home-mobile-cartoes') {
+    if (this.aplicativo === "mobileitaucard.home-mobile-cartoes") {
       this.appRadioButton = true;
       this.homeCartoes = true;
     } else {
@@ -81,16 +75,19 @@ export class MenuOpcoesComponent implements OnInit {
       this.homeCartoes = false;
     }
 
-    this.menuOpcoesService.guardarAplicativo(this.aplicativo);
-
     this.onChangeAplicativo.emit({
       homeCartoes: this.homeCartoes,
-      opcao: this.opcao
+      opcao: this.opcao,
+      aplicativo: this.aplicativo,
+      fileMenu: this.fileMenu
     });
+
+    console.log(this.aplicativo)
+  
   }
 
   setOpcao(_opcao: number){
-   debugger;
+    debugger;
     this.opcao = _opcao;
     this.onChangeAplicativo.emit({
       homeCartoes: this.homeCartoes,
@@ -109,7 +106,7 @@ export class MenuOpcoesComponent implements OnInit {
     this.aplicativos = Array<string>();
     this.appCombobox = false;
     this.appRadioButton = false;
-    this.aplicativo = '';
+    this.aplicativo = "";
     this.opcao = undefined;
     this.homeCartoes = undefined;
   }

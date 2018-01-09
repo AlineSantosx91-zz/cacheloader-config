@@ -58,6 +58,7 @@ export class MenuCadastroService {
 
 
     isHomeCartoes(): boolean {
+        debugger;
         if (this.menuOpcoesComponent.aplicativo === "mobileitaucard.home-mobile-cartoes") {
             return true;
         }
