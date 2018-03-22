@@ -1,4 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
+import { MenuDados } from "../common/model/menu-dados-model";
 
 
 @Component({
@@ -7,28 +8,30 @@ import { Component, OnInit, Injectable } from '@angular/core';
   styleUrls: ['./menu.component.css']
   
 })
+
 @Injectable()
 export class MenuComponent implements OnInit {
 
-  opcao: number;
-  homeCartoes: boolean;
-  aplicativo: string;
-  fileMenu: Object[];
+
   
   ngOnInit() {
     console.log(`construtor do MenuComponent`);
   }
 
+  menuDados = new MenuDados();
+
   watch($event) {
+    console.log("watch event");    
+    
     debugger;
-    this.homeCartoes = $event.homeCartoes;
-    this.opcao = $event.opcao;
-    this.aplicativo = $event.aplicativo;
-    this.fileMenu = $event.fileMenu;
+    this.menuDados.homeCartoes = $event.homeCartoes;
+    this.menuDados.opcao = $event.opcao;
+    this.menuDados.aplicativo = $event.aplicativo;
+    this.menuDados.fileMenu = $event.fileMenu;
   }
 
   hiddenCadastro(){
-    if(this.opcao!==undefined || this.homeCartoes===false){
+    if(this.menuDados.opcao!==undefined || this.menuDados.homeCartoes===false){
       return false;
     }
     return true;

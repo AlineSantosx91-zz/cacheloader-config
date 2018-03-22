@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Filho } from './../common/model/menu-filho-model';
@@ -7,6 +7,7 @@ import { MenuOpcoesComponent } from './../menu-opcoes/menu-opcoes.component';
 import { AlertsComponent } from './../common/alerts/alerts.component';
 import { MenuOpcoesService } from '../menu-opcoes/menu-opcoes.service';
 import { MenuComponent } from './../menu/menu.component';
+import { MenuDados } from "../common/model/menu-dados-model";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class MenuCadastroComponent implements OnInit {
   // menuOpcoesComponent: MenuOpcoesComponent;
   menuOpcoesService: MenuOpcoesService;
 
+  @Input() menuDados = new MenuDados();
 
   constructor(private router: Router,
     private menuOpcoesComponent: MenuOpcoesComponent,
@@ -51,9 +53,9 @@ export class MenuCadastroComponent implements OnInit {
     this.alertsComponent.error = false;
     this.alertsComponent.success = false;
     debugger;
-    console.log(this.menuComponent.aplicativo);
-    // console.log(this.menuComponent.getAplicativo())
-    if (this.menuComponent.aplicativo == null || this.menuComponent.aplicativo == undefined) {
+    console.log(this.menuDados.aplicativo);
+   
+    if (this.menuDados.aplicativo == null || this.menuDados.aplicativo == undefined) {
       this.alertsComponent.setMessage("Selecione um aplicativo");
       this.alertsComponent.setError(true);
       return;
@@ -65,7 +67,7 @@ export class MenuCadastroComponent implements OnInit {
       this.setarFilhoNoPaiOutrasHomes()
     }
 
-    this.menuCadastroService.downloadFile(this.menuComponent.fileMenu);
+    this.menuCadastroService.downloadFile(this.menuDados.fileMenu);
     this.alertsComponent.setMessage("Cadastro realizado com sucesso");
     this.alertsComponent.setSuccess(true);
     console.log(this.alertsComponent.success);
@@ -74,9 +76,9 @@ export class MenuCadastroComponent implements OnInit {
 
   adicionaFilhosHomeCartoes() {
 
-    let filhos: Filho[] = this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"];
+    let filhos: Filho[] = this.menuDados.fileMenu[this.menuDados.aplicativo]["filhos"];
 
-    if (this.menuComponent.opcao === 1) {
+    if (this.menuDados.opcao === 1) {
 
       filhos.forEach(filho => {
         if (filho.chaveMobile === "publico") {
@@ -103,13 +105,13 @@ export class MenuCadastroComponent implements OnInit {
     this.filho.regras = this.menuCadastroService.converterRegrasStringToArray(this.stringRegras);
 
     filho.filhos.push(this.filho);
-    this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"] = filhos;
+    this.menuDados.fileMenu[this.menuDados.aplicativo]["filhos"] = filhos;
     return;
   }
 
   setarFilhoNoPaiOutrasHomes() {
 
-    let filhos: Filho[] = this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"];
+    let filhos: Filho[] = this.menuDados.fileMenu[this.menuDados.aplicativo]["filhos"];
 
     let ordens = this.menuCadastroService.obterNumerosDeOrdem(filhos);
     this.filho.ordem = this.menuCadastroService.retornaProximoNumeroMaior(ordens);
@@ -118,7 +120,7 @@ export class MenuCadastroComponent implements OnInit {
     this.filho.regras = this.menuCadastroService.converterRegrasStringToArray(this.stringRegras);
 
     filhos.push(this.filho);
-    this.menuComponent.fileMenu[this.menuComponent.aplicativo]["filhos"] = filhos;
+    this.menuDados.fileMenu[this.menuDados.aplicativo]["filhos"] = filhos;
   }
 
   // limparCampos(){

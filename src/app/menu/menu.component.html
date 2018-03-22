@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <app-alerts></app-alerts>
+    <app-alerts></app-alerts> 
     <app-menu-opcoes (onChangeAplicativo)="watch($event)"></app-menu-opcoes>
-    <app-menu-cadastro [hidden]="hiddenCadastro()"></app-menu-cadastro>
+    <app-menu-cadastro [menuDados]="menuDados" [hidden]="hiddenCadastro()"></app-menu-cadastro>
   </div>
 </div>
