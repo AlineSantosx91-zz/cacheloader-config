@@ -1,5 +1,4 @@
 import { element } from 'protractor';
-// import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, Injectable, Output, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 

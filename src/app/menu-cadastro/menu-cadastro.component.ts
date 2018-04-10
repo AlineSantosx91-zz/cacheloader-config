@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Filho } from './../common/model/menu-filho-model';
@@ -6,7 +6,6 @@ import { MenuCadastroService } from './menu-cadastro.service';
 import { MenuOpcoesComponent } from './../menu-opcoes/menu-opcoes.component';
 import { AlertsComponent } from './../common/alerts/alerts.component';
 import { MenuOpcoesService } from '../menu-opcoes/menu-opcoes.service';
-import { MenuComponent } from './../menu/menu.component';
 import { MenuDados } from "../common/model/menu-dados-model";
 
 
@@ -14,7 +13,7 @@ import { MenuDados } from "../common/model/menu-dados-model";
   selector: 'app-menu-cadastro',
   templateUrl: './menu-cadastro.component.html',
   styleUrls: ['./menu-cadastro.component.css'],
-  providers: [MenuCadastroService, AlertsComponent, MenuOpcoesComponent, MenuOpcoesService, MenuComponent]
+  providers: [MenuCadastroService, AlertsComponent, MenuOpcoesComponent, MenuOpcoesService]
 
 })
 export class MenuCadastroComponent implements OnInit {
@@ -22,19 +21,18 @@ export class MenuCadastroComponent implements OnInit {
   filho: Filho;
   stringRegras: string;
   menuCadastroService: MenuCadastroService;
-  // alertsComponent: AlertsComponent
-  // menuOpcoesComponent: MenuOpcoesComponent;
   menuOpcoesService: MenuOpcoesService;
 
   @Input() menuDados = new MenuDados();
 
-  constructor(private router: Router,
+
+  constructor(
+    private router: Router,
     private menuOpcoesComponent: MenuOpcoesComponent,
     _menuCadastroService: MenuCadastroService,
     private alertsComponent: AlertsComponent,
-    _menuOpcoesService: MenuOpcoesService,
-    private menuComponent: MenuComponent) {
-    console.log("construtor do MenuCadastroComponent ");
+    _menuOpcoesService: MenuOpcoesService) {
+
     this.filho = new Filho();
     this.filho.ativo = true;
     this.filho.subMenu = false;
@@ -43,7 +41,7 @@ export class MenuCadastroComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.alertsComponent.setError(true);
+    this.alertsComponent.setError(true);
   }
 
 
@@ -52,12 +50,15 @@ export class MenuCadastroComponent implements OnInit {
     this.alertsComponent.mensagens = new Array;
     this.alertsComponent.error = false;
     this.alertsComponent.success = false;
-    debugger;
-    console.log(this.menuDados.aplicativo);
-   
+    
+   //retirar apos testar alertas
+    this.menuDados.aplicativo = null;
+
     if (this.menuDados.aplicativo == null || this.menuDados.aplicativo == undefined) {
       this.alertsComponent.setMessage("Selecione um aplicativo");
       this.alertsComponent.setError(true);
+      debugger;
+      console.log(this.alertsComponent.error);
       return;
     }
 
@@ -71,7 +72,7 @@ export class MenuCadastroComponent implements OnInit {
     this.alertsComponent.setMessage("Cadastro realizado com sucesso");
     this.alertsComponent.setSuccess(true);
     console.log(this.alertsComponent.success);
-    // this.limparCampos();
+    this.limparCampos();
   }
 
   adicionaFilhosHomeCartoes() {
@@ -123,11 +124,11 @@ export class MenuCadastroComponent implements OnInit {
     this.menuDados.fileMenu[this.menuDados.aplicativo]["filhos"] = filhos;
   }
 
-  // limparCampos(){
-  //   this.alertsComponent.error = false;
-  //   this.filho = new Filho();
-  //   this.stringRegras= "";
-  //   this.menuComponent.limparCampos();
-  // }
+  limparCampos(){
+    this.alertsComponent.error = false;
+    this.filho = new Filho();
+    this.stringRegras= "";
+    this.menuDados = new MenuDados();
+  }
 
 }

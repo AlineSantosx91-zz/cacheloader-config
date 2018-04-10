@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, Input, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-alerts',
@@ -15,6 +15,7 @@ export class AlertsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
   setMessage(msg: string){
@@ -30,10 +31,13 @@ export class AlertsComponent implements OnInit {
   setSuccess(success: boolean){
     debugger;
     this.success = success;
+    console.log(this.success);
   }
 
   setError(error: boolean){
     this.error = error;
+    console.log(this.error);
+    
   }
 
 }
