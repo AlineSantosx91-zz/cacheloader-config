@@ -7,13 +7,14 @@ import { MenuOpcoesComponent } from './../menu-opcoes/menu-opcoes.component';
 import { AlertsComponent } from './../common/alerts/alerts.component';
 import { MenuOpcoesService } from '../menu-opcoes/menu-opcoes.service';
 import { MenuDados } from "../common/model/menu-dados-model";
+import { AlertsService } from './../common/alerts/alerts.service';
 
 
 @Component({
   selector: 'app-menu-cadastro',
   templateUrl: './menu-cadastro.component.html',
   styleUrls: ['./menu-cadastro.component.css'],
-  providers: [MenuCadastroService, AlertsComponent, MenuOpcoesComponent, MenuOpcoesService]
+  providers: [MenuCadastroService, AlertsComponent, MenuOpcoesComponent, MenuOpcoesService, AlertsService]
 
 })
 export class MenuCadastroComponent implements OnInit {
@@ -24,14 +25,15 @@ export class MenuCadastroComponent implements OnInit {
   menuOpcoesService: MenuOpcoesService;
 
   @Input() menuDados = new MenuDados();
-
+  
 
   constructor(
     private router: Router,
     private menuOpcoesComponent: MenuOpcoesComponent,
     _menuCadastroService: MenuCadastroService,
     private alertsComponent: AlertsComponent,
-    _menuOpcoesService: MenuOpcoesService) {
+    _menuOpcoesService: MenuOpcoesService,
+    private alertsService : AlertsService) {
 
     this.filho = new Filho();
     this.filho.ativo = true;
@@ -41,24 +43,21 @@ export class MenuCadastroComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.alertsComponent.setError(true);
   }
 
 
   cadastrarMenu() {
 
-    this.alertsComponent.mensagens = new Array;
-    this.alertsComponent.error = false;
-    this.alertsComponent.success = false;
+   
     
    //retirar apos testar alertas
     this.menuDados.aplicativo = null;
 
     if (this.menuDados.aplicativo == null || this.menuDados.aplicativo == undefined) {
-      this.alertsComponent.setMessage("Selecione um aplicativo");
-      this.alertsComponent.setError(true);
-      debugger;
-      console.log(this.alertsComponent.error);
+      // this.alertsService.setMessageError("Selecione um aplicativo");
+      AlertsService.emitirMensagemError.emit("aline");
+      // this.alertsComponent.setMessage("Selecione um aplicativo");
+      // this.alertsComponent.setError(true);
       return;
     }
 
@@ -69,9 +68,8 @@ export class MenuCadastroComponent implements OnInit {
     }
 
     this.menuCadastroService.downloadFile(this.menuDados.fileMenu);
-    this.alertsComponent.setMessage("Cadastro realizado com sucesso");
-    this.alertsComponent.setSuccess(true);
-    console.log(this.alertsComponent.success);
+    AlertsService.emitirMensagemError.emit("Cadastro realizado com sucesso");
+    
     this.limparCampos();
   }
 

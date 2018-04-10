@@ -21,9 +21,7 @@ export class MenuComponent implements OnInit {
   menuDados = new MenuDados();
 
   watch($event) {
-    console.log("watch event");    
     
-    debugger;
     this.menuDados.homeCartoes = $event.homeCartoes;
     this.menuDados.opcao = $event.opcao;
     this.menuDados.aplicativo = $event.aplicativo;

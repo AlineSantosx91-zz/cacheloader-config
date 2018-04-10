@@ -26,7 +26,6 @@ export class MenuOpcoesComponent implements OnInit {
   
 
   constructor() {
-    console.log(`construtor do MenuOpcoesComponent`);
   }
 
   ngOnInit() {
@@ -79,14 +78,10 @@ export class MenuOpcoesComponent implements OnInit {
       opcao: this.opcao,
       aplicativo: this.aplicativo,
       fileMenu: this.fileMenu
-    });
-
-    console.log(this.aplicativo)
-  
+    });  
   }
 
   setOpcao(_opcao: number){
-    debugger;
     this.opcao = _opcao;
     this.onChangeAplicativo.emit({
       homeCartoes: this.homeCartoes,

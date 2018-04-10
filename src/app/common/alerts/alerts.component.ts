@@ -1,9 +1,13 @@
 import { Component, OnInit, Injectable, Input, EventEmitter } from '@angular/core';
+import { AlertsService } from './alerts.service';
+
 
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.css']
+  styleUrls: ['./alerts.component.css'],
+  providers: [AlertsService]
+  
 })
 @Injectable()
 export class AlertsComponent implements OnInit {
@@ -12,10 +16,21 @@ export class AlertsComponent implements OnInit {
   error: boolean;
   success: boolean;
 
-  constructor() { }
+  constructor(private alertsService : AlertsService) { }
 
   ngOnInit() {
-    
+    AlertsService.emitirMensagemError.subscribe(
+      mensagem => console.log(mensagem)
+    );
+
+    AlertsService.emitirMensagemSuccess.subscribe(
+      mensagem => console.log(mensagem)
+    );
+  }
+
+  ngOnDestroy() {
+    AlertsService.emitirMensagemError.unsubscribe();
+    AlertsService.emitirMensagemSuccess.unsubscribe();
   }
 
   setMessage(msg: string){
