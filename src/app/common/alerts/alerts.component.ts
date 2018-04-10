@@ -16,43 +16,33 @@ export class AlertsComponent implements OnInit {
   error: boolean;
   success: boolean;
 
-  constructor(private alertsService : AlertsService) { }
+  constructor() { }
 
   ngOnInit() {
-    AlertsService.emitirMensagemError.subscribe(
-      mensagem => console.log(mensagem)
-    );
-
-    AlertsService.emitirMensagemSuccess.subscribe(
-      mensagem => console.log(mensagem)
+    this.error = false;
+    this.success = false;
+    
+    AlertsService.emitirFallback.subscribe(
+      data => this.setarResposta(data)
     );
   }
 
   ngOnDestroy() {
-    AlertsService.emitirMensagemError.unsubscribe();
-    AlertsService.emitirMensagemSuccess.unsubscribe();
+    AlertsService.emitirFallback.unsubscribe();
   }
 
-  setMessage(msg: string){
+  setarResposta(data: any){
+    this.mensagens = new Array<string>();
+    this.mensagens.push(data.message);
 
-    if(this.mensagens == undefined || this.mensagens == null){
-      this.mensagens = new Array<string>()
+    if(data.status === 'success'){
+      this.success = true;
     }
 
-    this.mensagens.push(msg)
+    if(data.status === 'error'){
+      this.error = true;
+    }
 
-  }
-
-  setSuccess(success: boolean){
-    debugger;
-    this.success = success;
-    console.log(this.success);
-  }
-
-  setError(error: boolean){
-    this.error = error;
-    console.log(this.error);
-    
   }
 
 }

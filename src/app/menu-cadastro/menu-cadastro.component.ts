@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Filho } from './../common/model/menu-filho-model';
 import { MenuCadastroService } from './menu-cadastro.service';
 import { MenuOpcoesComponent } from './../menu-opcoes/menu-opcoes.component';
-import { AlertsComponent } from './../common/alerts/alerts.component';
 import { MenuOpcoesService } from '../menu-opcoes/menu-opcoes.service';
 import { MenuDados } from "../common/model/menu-dados-model";
 import { AlertsService } from './../common/alerts/alerts.service';
@@ -14,7 +13,7 @@ import { AlertsService } from './../common/alerts/alerts.service';
   selector: 'app-menu-cadastro',
   templateUrl: './menu-cadastro.component.html',
   styleUrls: ['./menu-cadastro.component.css'],
-  providers: [MenuCadastroService, AlertsComponent, MenuOpcoesComponent, MenuOpcoesService, AlertsService]
+  providers: [MenuCadastroService, MenuOpcoesComponent, MenuOpcoesService, AlertsService]
 
 })
 export class MenuCadastroComponent implements OnInit {
@@ -31,7 +30,6 @@ export class MenuCadastroComponent implements OnInit {
     private router: Router,
     private menuOpcoesComponent: MenuOpcoesComponent,
     _menuCadastroService: MenuCadastroService,
-    private alertsComponent: AlertsComponent,
     _menuOpcoesService: MenuOpcoesService,
     private alertsService : AlertsService) {
 
@@ -48,16 +46,8 @@ export class MenuCadastroComponent implements OnInit {
 
   cadastrarMenu() {
 
-   
-    
-   //retirar apos testar alertas
-    this.menuDados.aplicativo = null;
-
     if (this.menuDados.aplicativo == null || this.menuDados.aplicativo == undefined) {
-      // this.alertsService.setMessageError("Selecione um aplicativo");
-      AlertsService.emitirMensagemError.emit("aline");
-      // this.alertsComponent.setMessage("Selecione um aplicativo");
-      // this.alertsComponent.setError(true);
+      AlertsService.emitirFallback.emit({message: 'Selecione um aplicativo', status: 'error'});
       return;
     }
 
@@ -68,12 +58,11 @@ export class MenuCadastroComponent implements OnInit {
     }
 
     this.menuCadastroService.downloadFile(this.menuDados.fileMenu);
-    AlertsService.emitirMensagemError.emit("Cadastro realizado com sucesso");
-    
+    AlertsService.emitirFallback.emit({message: 'Cadastro realizado com sucesso', status: 'success'});
     this.limparCampos();
   }
 
-  adicionaFilhosHomeCartoes() {
+  private adicionaFilhosHomeCartoes() {
 
     let filhos: Filho[] = this.menuDados.fileMenu[this.menuDados.aplicativo]["filhos"];
 
@@ -95,7 +84,7 @@ export class MenuCadastroComponent implements OnInit {
     }
   }
 
-  setarFilhoNoPaiHomeCartoes(filho: Filho, filhos: Filho[]) {
+  private setarFilhoNoPaiHomeCartoes(filho: Filho, filhos: Filho[]) {
 
     let ordens = this.menuCadastroService.obterNumerosDeOrdem(filho.filhos);
     this.filho.ordem = this.menuCadastroService.retornaProximoNumeroMaior(ordens);
@@ -108,7 +97,7 @@ export class MenuCadastroComponent implements OnInit {
     return;
   }
 
-  setarFilhoNoPaiOutrasHomes() {
+ private setarFilhoNoPaiOutrasHomes() {
 
     let filhos: Filho[] = this.menuDados.fileMenu[this.menuDados.aplicativo]["filhos"];
 
@@ -122,8 +111,7 @@ export class MenuCadastroComponent implements OnInit {
     this.menuDados.fileMenu[this.menuDados.aplicativo]["filhos"] = filhos;
   }
 
-  limparCampos(){
-    this.alertsComponent.error = false;
+  private limparCampos(){
     this.filho = new Filho();
     this.stringRegras= "";
     this.menuDados = new MenuDados();
