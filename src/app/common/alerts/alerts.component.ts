@@ -19,8 +19,8 @@ export class AlertsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.error = false;
-    this.success = false;
+    // this.error = false;
+    // this.success = false;
     
     AlertsService.emitirFallback.subscribe(
       data => this.setarResposta(data)
@@ -32,6 +32,10 @@ export class AlertsComponent implements OnInit {
   }
 
   setarResposta(data: any){
+
+    this.error = false;
+    this.success = false;
+
     this.mensagens = new Array<string>();
     this.mensagens.push(data.message);
 
